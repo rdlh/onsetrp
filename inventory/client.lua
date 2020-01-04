@@ -64,7 +64,7 @@ end)
 
 
 AddEvent("OnKeyPress", function( key )
-    if key == "F4" and not onSpawn and not onCharacterCreation then
+    if key == "F4" and not alreadyInteracting then
         CallRemoteEvent("ServerPersonalMenu")
     end
 end)

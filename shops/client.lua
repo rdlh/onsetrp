@@ -23,9 +23,10 @@ AddRemoteEvent("shopSetup", function(ShopObject)
 end)
 
 function OnKeyPress(key)
-    if key == "E" and not onSpawn and not onCharacterCreation then
+    if key == "E" and not alreadyInteracting then
 		local NearestShop = GetNearestShop()
-        if NearestShop ~= 0 then
+		if NearestShop ~= 0 then
+			alreadyInteracting = true
             CallRemoteEvent("shopInteract", NearestShop)
 		end
 	end
@@ -35,6 +36,7 @@ AddEvent("OnKeyPress", OnKeyPress)
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
 	local args = { ... }
 	if dialog == shop then
+		alreadyInteracting = false
 		if button == 1 then
 			if args[1] == "" then
 				MakeNotification(_("select_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")

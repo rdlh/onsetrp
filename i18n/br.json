@@ -268,5 +268,17 @@
     "transport_choose_stop": "Por favor selecione uma parada",
     "transport_bus_incoming": "Seu ônibus está chegando, não vá!",
     "transport_not_enough_money": "Você não tem dinheiro suficiente",
-    "transport_you_are_there": "(Voce esta la)"
+    "transport_you_are_there": "(Voce esta la)",
+    "only_walk": "Use alt to walk!",
+    "vehicle_full": "Your vehicle is full!",
+    "police_station": "Police Station",
+    "police_garage": "Police Garage",
+    "police_garage_menu": "Police Garage",
+    "not_police": "You are not a police officer!",
+    "police_armory": "Police Armory",
+    "get_equipped": "Get equipped",
+    "paid_fine_giver": "The player paid his fine",
+    "stylist": "Stylist",
+    "yes": "Yes",
+    "choose": "Choose"
 }
