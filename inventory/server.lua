@@ -167,10 +167,17 @@ AddRemoteEvent("TransferInventory", function(player, item, amount, toplayer)
     end
 end)
 
+AddRemoteEvent("RemoveFromInventory", function(player, item, amount)
+    if PlayerData[player].inventory[item] < tonumber(amount) then
+        CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
+    else
+        RemoveInventory(tonumber(player), item, tonumber(amount))
+    end
+end)
 
 function AddInventory(player, item, amount)
     local slotsAvailables = tonumber(GetPlayerMaxSlots(player)) - tonumber(GetPlayerUsedSlots(player))
-     if slotsAvailables >= amount or item == "cash"then
+     if slotsAvailables >= amount or item == "cash" then
         if item == "item_backpack" and GetPlayerBag(player) == 1 then -- On ne peux pas acheter plusieurs sacs
             return false
         end
@@ -182,11 +189,11 @@ function AddInventory(player, item, amount)
         if item == "item_backpack" then -- Affichage du sac sur le perso
             DisplayPlayerBackpack(player, 1)
         end
+        UpdateUIInventory(player, item, PlayerData[player].inventory[item])
         return true
     else
         return false
     end
-    UpdateUIInventory(player, item, PlayerData[player].inventory[item])
 end
 
 function RemoveInventory(player, item, amount)

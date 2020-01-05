@@ -63,12 +63,6 @@ end
 AddEvent('BURDIGALAX_inventory_onTransfer', onTransferItems)
 
 function BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots)
-
-    -- playersList = {
-    --     { id = 42, name = "John Doe" }
-    -- }
-    -- playersList = { }
-
     local json = {
         config = {
             hasEquipableCategory = true

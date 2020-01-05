@@ -14,7 +14,7 @@ AddEvent('BURDIGALAX_inventory_onUse', itemUsedInInventory)
 
 function itemDeletedInInventory(event)
     local data = json_decode(event)
-    print(event)
+    CallRemoteEvent("RemoveFromInventory", data.idItem, data.quantity, data.destinationInventoryId)
 end
 AddEvent('BURDIGALAX_inventory_onDelete', itemDeletedInInventory)
 
