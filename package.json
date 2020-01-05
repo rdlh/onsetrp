@@ -118,13 +118,10 @@
         "idcard/id.js",
         "idcard/id.css",
         "idcard/Cedarville-Cursive.ttf",
-        "burdigalax/client/gui/onShop/index.js",
-        "burdigalax/client/gui/gasStation/index.js",
         "burdigalax/client/gui/vendors.burdigalax.js",
         "burdigalax/client/gui/commons.burdigalax.js",
         "burdigalax/client/gui/inventory.html",
         "burdigalax/client/gui/inventory.burdigalax.js",
-        "burdigalax/client/gui/inventory/index.js",
         "burdigalax/client/gui/fonts/Montserrat-Regular.ttf"
     ]
 }
