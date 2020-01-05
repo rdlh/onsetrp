@@ -18,6 +18,7 @@ AddEvent("OnPackageStop", OnPackageStopInventory)
 -- CLOSE
 
 function CloseUIInventory(context)
+    personalMenuIsOpen = 0
     if context == '"transfer"' then
         ExecuteWebJS(inventoryUI, "ResetSelectedNearbyInventory()")
     else
@@ -33,6 +34,7 @@ AddEvent("BURDIGALAX_inventory_onClose", CloseUIInventory)
 -- INIT
 
 function OpenUIInventory(key, items, playerInventory, playerName, playerId, playersList, maxSlots)
+    personalMenuIsOpen = 1
     ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots))..");")
     ShowMouseCursor(true)
     SetInputMode(INPUT_GAMEANDUI)
