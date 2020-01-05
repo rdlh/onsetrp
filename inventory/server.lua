@@ -177,7 +177,7 @@ end)
 
 function AddInventory(player, item, amount)
     local slotsAvailables = tonumber(GetPlayerMaxSlots(player)) - tonumber(GetPlayerUsedSlots(player))
-     if slotsAvailables >= amount or item == "cash" then
+     if slotsAvailables >= (amount * ItemsWeight[item]) or item == "cash" then
         if item == "item_backpack" and GetPlayerBag(player) == 1 then -- On ne peux pas acheter plusieurs sacs
             return false
         end
@@ -257,7 +257,7 @@ function GetPlayerUsedSlots(player)
         if k == 'cash' then
             usedSlots = usedSlots + 1
         else
-            usedSlots = usedSlots + v
+            usedSlots = usedSlots + (v * ItemsWeight[k])
         end
     end
     return usedSlots

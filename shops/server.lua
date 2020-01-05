@@ -1,6 +1,7 @@
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
 Items = {}
+ItemsWeight = {}
 ShopObjectsCached = { }
 ShopTable = { }
 
@@ -9,6 +10,17 @@ AddEvent("database:connected", function()
     mariadb_query(sql, "SELECT * FROM items;", function()
         for i = 1, mariadb_get_row_count() do
             local item = mariadb_get_assoc(i)
+
+            local roundedWeight = tonumber(string.format("%." .. 3 .. "f", tonumber(item['weight'] / 1000)))
+            local weightInText = ""
+
+            if roundedWeight >= 1 then
+                weightInText = roundedWeight.."kg"
+            else
+                weightInText = math.tointeger(roundedWeight * 1000).."g"
+            end
+
+            ItemsWeight[item['name']] = roundedWeight
             
             table.insert(Items, { 
                 id = tonumber(item['id']),
@@ -17,7 +29,8 @@ AddEvent("database:connected", function()
                 category = item['category'],
                 subcategory = item['subcategory'],
                 price = tonumber(item['price']),
-                weight = tonumber(string.format("%." .. 3 .. "f", tonumber(item['weight'] / 1000))),
+                weight = roundedWeight,
+                weightInText = weightInText,
                 hunger = tonumber(item['hunger']),
                 thirst = tonumber(item['thirst']),
                 usable = tonumber(item['usable']),
