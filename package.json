@@ -32,7 +32,8 @@
         "licenses/server.lua",
         "onset-phone/server.lua",
         "transport/s_busstop.lua",
-        "burdigalax/server/inventory.lua"
+        "burdigalax/server/inventory.lua",
+        "vehicle_radio/server.lua"
     ],
     "client_scripts": [
         "accounts/client.lua",
@@ -68,8 +69,8 @@
         "medic/client.lua",
         "licenses/client.lua",
         "transport/c_busstop.lua",
-        "burdigalax/client/gasStation.lua",
-        "burdigalax/client/inventory.lua"
+        "burdigalax/client/inventory.lua",
+        "vehicle_radio/client.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",

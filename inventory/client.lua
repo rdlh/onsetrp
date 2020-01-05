@@ -2,8 +2,8 @@ local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...)
 
 local personalMenu
 
-AddRemoteEvent("OpenPersonalMenu", function(key, items, inventory, playerName, playerId, playerList)
-    OpenUIInventory(key, items, inventory, playerName, playerId, playerList)
+AddRemoteEvent("OpenPersonalMenu", function(key, items, inventory, playerName, playerId, playerList, maxSlots)
+    OpenUIInventory(key, items, inventory, playerName, playerId, playerList, maxSlots)
 end)
 
 function itemUsedInInventory(event)
