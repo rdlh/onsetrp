@@ -65,7 +65,7 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
     -- playersList = {
     --     { id = 42, name = "John Doe" }
     -- }
-    playersList = { }
+    -- playersList = { }
 
     local json = {
         config = {
