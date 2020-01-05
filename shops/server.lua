@@ -13,11 +13,15 @@ AddEvent("database:connected", function()
             table.insert(Items, { 
                 id = tonumber(item['id']),
                 name = item['name'],
+                translated_name = _(item['name']),
                 category = item['category'],
+                subcategory = item['subcategory'],
                 price = tonumber(item['price']),
-                weight = tonumber(item['weight']),
+                weight = tonumber(string.format("%." .. 3 .. "f", tonumber(item['weight'] / 1000))),
                 hunger = tonumber(item['hunger']),
                 thirst = tonumber(item['thirst']),
+                usable = tonumber(item['usable']),
+                equipable = tonumber(item['equipable'])
             })
         end
 

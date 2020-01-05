@@ -3,19 +3,19 @@ Dialog.setGlobalTheme("flat")
 
 local _ = function(k,...) return ImportPackage("i18n").t(GetPackageName(),k,...) end
 
-local shop
+local shopUI
 local lastShop
 local ShopIds = { }
 local lastItems = { }
 
 AddEvent("OnTranslationReady", function()
-    shop = Dialog.create(_("shop"), nil, _("cancel"))
-    Dialog.addSelect(shop, 1, _("inventory"), 5)
-    Dialog.addTextInput(shop, 1, _("quantity"))
-    Dialog.setButtons(shop, 1, _("sell"))
-    Dialog.addSelect(shop, 2, _("shop"), 5)
-    Dialog.addTextInput(shop, 2, _("quantity"))
-    Dialog.setButtons(shop, 2, _("buy"))
+    shopUI = Dialog.create(_("shop"), nil, _("cancel"))
+    Dialog.addSelect(shopUI, 1, _("inventory"), 5)
+    Dialog.addTextInput(shopUI, 1, _("quantity"))
+    Dialog.setButtons(shopUI, 1, _("sell"))
+    Dialog.addSelect(shopUI, 2, _("shop"), 5)
+    Dialog.addTextInput(shopUI, 2, _("quantity"))
+    Dialog.setButtons(shopUI, 2, _("buy"))
 end)
 
 AddRemoteEvent("shopSetup", function(ShopObject)
@@ -26,7 +26,7 @@ function OnKeyPress(key)
     if key == "E" and not alreadyInteracting then
 		local NearestShop = GetNearestShop()
 		if NearestShop ~= 0 then
-			alreadyInteracting = true
+			alreadyInteracting = false
             CallRemoteEvent("shopInteract", NearestShop)
 		end
 	end
@@ -35,7 +35,7 @@ AddEvent("OnKeyPress", OnKeyPress)
 
 AddEvent("OnDialogSubmit", function(dialog, button, ...)
 	local args = { ... }
-	if dialog == shop then
+	if dialog == shopUI then
 		alreadyInteracting = false
 		if button == 1 then
 			if args[1] == "" then
@@ -96,13 +96,16 @@ AddRemoteEvent("openShop", function(inventory, items, shopid)
 	end
 
 	for key, item in pairs(items) do
-		shopItems[key] = _(item.name).." (".._("price_in_currency", item.price)..")"
+		shopItems[key] = item.translated_name.." (".._("price_in_currency", item.price)..")"
 	end
 
 	lastItems = items
 	lastShop = shopid
 
-	Dialog.setSelectLabeledOptions(shop, 1, 1, inventoryItems)
-	Dialog.setSelectLabeledOptions(shop, 2, 1, shopItems)
-	Dialog.show(shop)
+	print("*-----")
+	print(shopUI)
+
+	Dialog.setSelectLabeledOptions(shopUI, 1, 1, inventoryItems)
+	Dialog.setSelectLabeledOptions(shopUI, 2, 1, shopItems)
+	Dialog.show(shopUI)
 end)

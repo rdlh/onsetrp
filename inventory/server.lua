@@ -6,10 +6,11 @@ AddRemoteEvent("ServerPersonalMenu", function(player)
     local playerList = {}
     for k,v in pairs(nearestPlayers) do
         if k ~= player then
-            playerList[tostring(k)] = GetPlayerName(k)
+            table.insert(playerList, { id = k, name = GetPlayerName(k) })
         end
     end
-    CallRemoteEvent(player, "OpenPersonalMenu", GetPlayerCash(player), PlayerData[player].bank_balance, PlayerData[player].inventory, playerList)
+    CallRemoteEvent(player, "OpenPersonalMenu", "I", Items, PlayerData[player].inventory, PlayerData[player].name, player, playerList)
+    --CallRemoteEvent(player, "OpenPersonalMenu", GetPlayerCash(player), PlayerData[player].bank_balance, PlayerData[player].inventory, playerList)
 end)
 
 
@@ -151,7 +152,7 @@ AddRemoteEvent("TransferInventory", function(player, item, amount, toplayer)
         CallRemoteEvent(player, "MakeNotification", _("not_enough_item"), "linear-gradient(to right, #ff5f6d, #ffc371)")
     else
         AddInventory(tonumber(toplayer), item, tonumber(amount))
-        RemoveInventory(tonumber(player ), item, tonumber(amount))
+        RemoveInventory(tonumber(player), item, tonumber(amount))
         
         CallRemoteEvent(player, "MakeNotification", _("successful_transfer", amount, item, GetPlayerName(tonumber(toplayer))), "linear-gradient(to right, #00b09b, #96c93d)")
         CallRemoteEvent(tonumber(toplayer), "MakeNotification", _("received_transfer", amount, item, GetPlayerName(player)), "linear-gradient(to right, #00b09b, #96c93d)")
@@ -165,6 +166,7 @@ function AddInventory(player, item, amount)
     else
         PlayerData[player].inventory[item] = PlayerData[player].inventory[item] + amount
     end
+    UpdateUIInventory(player, item, PlayerData[player].inventory[item])
 end
 
 function RemoveInventory(player, item, amount)
@@ -173,8 +175,10 @@ function RemoveInventory(player, item, amount)
     else
         if PlayerData[player].inventory[item] - amount < 1 then
             PlayerData[player].inventory[item] = nil
+            UpdateUIInventory(player, item, 0)
         else
             PlayerData[player].inventory[item] = PlayerData[player].inventory[item] - amount
+            UpdateUIInventory(player, item, PlayerData[player].inventory[item])
         end
     end
 end
@@ -196,6 +200,7 @@ function AddPlayerCash(player, amount)
 end
 
 function RemovePlayerCash(player, amount)
+    UpdateUIInventory(player, 'cash', math.tointeger(amount))
     RemoveInventory(player, 'cash', math.tointeger(amount))
 end
 

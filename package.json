@@ -31,7 +31,8 @@
         "medic/server.lua",
         "licenses/server.lua",
         "onset-phone/server.lua",
-        "transport/s_busstop.lua"
+        "transport/s_busstop.lua",
+        "burdigalax/server/inventory.lua"
     ],
     "client_scripts": [
         "accounts/client.lua",
@@ -45,6 +46,7 @@
         "garage/client.lua",
         "character/client.lua",
         "misc/json.lua",
+        "misc/svg.lua",
         "misc/cinematicui.lua",
         "housing/client.lua",
         "inventory/client.lua",
@@ -65,7 +67,9 @@
         "holiday/client.lua",
         "medic/client.lua",
         "licenses/client.lua",
-        "transport/c_busstop.lua"
+        "transport/c_busstop.lua",
+        "burdigalax/client/gasStation.lua",
+        "burdigalax/client/inventory.lua"
     ],
     "files": [
         "hud/speaking/speaking.png",
@@ -112,6 +116,14 @@
         "idcard/id.html",
         "idcard/id.js",
         "idcard/id.css",
-        "idcard/Cedarville-Cursive.ttf"
+        "idcard/Cedarville-Cursive.ttf",
+        "burdigalax/client/gui/onShop/index.js",
+        "burdigalax/client/gui/gasStation/index.js",
+        "burdigalax/client/gui/vendors.burdigalax.js",
+        "burdigalax/client/gui/commons.burdigalax.js",
+        "burdigalax/client/gui/inventory.html",
+        "burdigalax/client/gui/inventory.burdigalax.js",
+        "burdigalax/client/gui/inventory/index.js",
+        "burdigalax/client/gui/fonts/Montserrat-Regular.ttf"
     ]
 }

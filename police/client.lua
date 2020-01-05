@@ -179,7 +179,7 @@ AddEvent("OnPlayerStreamIn", function(player, otherplayer)
 end)
 
 AddEvent("OnKeyPress", function(key)
-    if(key == "R" and IsShiftPressed()) then
+    if(key == "R" and IsCtrlPressed()) then
 	    CallRemoteEvent("HandcuffPlayerSetup")
     end
 end)
