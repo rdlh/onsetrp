@@ -123,8 +123,9 @@ INSERT INTO `items` (`id`, `name`, `category`, `subcategory`, `price`, `weight`,
 (28, 'weapon_18', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
 (29, 'weapon_19', 'weapons', 'weapon', 20000, 5000, 0, 0, 0, 1),
 (30, 'weapon_20', 'weapons', 'weapon', 30000, 6000, 0, 0, 0, 1),
-(31, 'processed_rock', 'mine', 'object', 160, 1000, 0, 0, 0, 1);
-(32, 'peach', 'miscellaneous', 'food', 160, 1000, 0, 0, 0, 1);
+(31, 'processed_rock', 'mine', 'object', 160, 1000, 0, 0, 0, 1),
+(32, 'peach', 'miscellaneous', 'food', 160, 1000, 0, 0, 0, 1),
+(33, 'item_backpack', 'miscellaneous', 'clothing', 300, 0, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 

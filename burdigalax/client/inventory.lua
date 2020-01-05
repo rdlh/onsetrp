@@ -32,11 +32,8 @@ AddEvent("BURDIGALAX_inventory_onClose", CloseUIInventory)
 
 -- INIT
 
-function OpenUIInventory(key, items, playerInventory, playerName, playerId, playersList)
-    print("------------------------")
-    print("BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList))..");")
-    print("------------------------")
-    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList))..");")
+function OpenUIInventory(key, items, playerInventory, playerName, playerId, playersList, maxSlots)
+    ExecuteWebJS(inventoryUI, "BURDIGALAX_inventory.setConfig("..json_encode(BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots))..");")
     ShowMouseCursor(true)
     SetInputMode(INPUT_GAMEANDUI)
     SetWebVisibility(inventoryUI, WEB_VISIBLE)
@@ -63,7 +60,7 @@ function onTransferItems(event)
 end
 AddEvent('BURDIGALAX_inventory_onTransfer', onTransferItems)
 
-function BuildInventoryJson(items, playerInventory, playerName, playerId, playersList)
+function BuildInventoryJson(items, playerInventory, playerName, playerId, playersList, maxSlots)
 
     -- playersList = {
     --     { id = 42, name = "John Doe" }
@@ -78,7 +75,7 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
         items = InventoryItems(items),
         effects = InventoryEffects(),
         categories = InventoryCategories(),
-        inventories = Inventories(playerId, playerName, playerInventory)
+        inventories = Inventories(playerId, playerName, playerInventory, maxSlots)
     }
 
     if playersList[1] ~= nil then
@@ -89,7 +86,7 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
         table.insert(json.inventories[1].nearbyInventoriesIds, player.id)
         table.insert(json.inventories, {
             id = player.id,
-            storageSize = 32,
+            storageSize = maxSlots,
             name = player.name,
             description = player.name,
             selectName = player.name,
@@ -100,11 +97,11 @@ function BuildInventoryJson(items, playerInventory, playerName, playerId, player
     return json
 end
 
-function Inventories(playerId, playerName, playerInventory)
+function Inventories(playerId, playerName, playerInventory, maxSlots)
     return {
         {
             id = playerId,
-            storageSize = 32,
+            storageSize = maxSlots,
             name = "Sac à dos",
             description = playerName,
             selectName = playerName,

@@ -7,6 +7,7 @@ local shopUI
 local lastShop
 local ShopIds = { }
 local lastItems = { }
+local lastInventoryItems = { }
 
 AddEvent("OnTranslationReady", function()
     shopUI = Dialog.create(_("shop"), nil, _("cancel"))
@@ -44,7 +45,7 @@ AddEvent("OnDialogSubmit", function(dialog, button, ...)
 				if args[2] == "" or math.floor(args[2]) < 1 then
 					MakeNotification(_("select_amount"), "linear-gradient(to right, #ff5f6d, #ffc371)")
 				else
-					CallRemoteEvent("ShopSell", lastShop, lastItems[tonumber(args[1])], math.floor(args[2]))
+					CallRemoteEvent("ShopSell", lastShop, lastInventoryItems[tonumber(args[1])], math.floor(args[2]))
 				end
 			end
 		end
@@ -84,13 +85,18 @@ end
 
 AddRemoteEvent("openShop", function(inventory, items, shopid)
 	local inventoryItems = {}	
+	local inventoryKey = 0	
 	local shopItems = {}
+
+	lastInventoryItems = {}
 
 	for inventoryItem, inventoryCount in pairs(inventory) do
 		-- Check if this NPC can buy this item (NPCs can only buy items they're selling)
 		for key, item in pairs(items) do
 			if inventoryItem == item.name then
-				inventoryItems[key] = inventoryCount.." x ".._(inventoryItem)
+				inventoryKey = inventoryKey + 1
+				lastInventoryItems[inventoryKey] = item
+				inventoryItems[inventoryKey] = inventoryCount.." x ".._(inventoryItem)
 			end
 		end
 	end
@@ -101,9 +107,6 @@ AddRemoteEvent("openShop", function(inventory, items, shopid)
 
 	lastItems = items
 	lastShop = shopid
-
-	print("*-----")
-	print(shopUI)
 
 	Dialog.setSelectLabeledOptions(shopUI, 1, 1, inventoryItems)
 	Dialog.setSelectLabeledOptions(shopUI, 2, 1, shopItems)
