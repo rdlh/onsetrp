@@ -60,15 +60,19 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-function updateHud()    
-    ExecuteWebJS(HealthHud, "SetHealth("..GetPlayerHealth()..", "..personalMenuIsOpen..");")
-    ExecuteWebJS(ThirstHud, "SetThirst("..GetPlayerPropertyValue(GetPlayerId(), "thirst")..", "..personalMenuIsOpen..");")
-    ExecuteWebJS(HungerFoodHud, "SetHunger("..GetPlayerPropertyValue(GetPlayerId(), "hunger")..", "..personalMenuIsOpen..");")
+function updateHud()
+    local pHealth = GetPlayerHealth()
+    local pHunger = GetPlayerPropertyValue(GetPlayerId(), "hunger")
+    local pThirst = GetPlayerPropertyValue(GetPlayerId(), "thirst")
+    if HealthHud ~= nil and pHealth ~= nil then ExecuteWebJS(HealthHud, "SetHealth("..pHealth..", "..personalMenuIsOpen..");") end -- Fix robustesse
+    if ThirstHud ~= nil and pThirst ~= nil then ExecuteWebJS(ThirstHud, "SetThirst("..pThirst..", "..personalMenuIsOpen..");") end
+    if HungerFoodHud ~= nil and pHunger ~= nil then ExecuteWebJS(HungerFoodHud, "SetHunger("..pHunger..", "..personalMenuIsOpen..");") end
 
     if GetPlayerVehicle() ~= 0 then
         SetTextBoxText(VehicleSpeedHud, _("speed")..math.floor(GetVehicleForwardSpeed(GetPlayerVehicle())).."KM/H")
         SetTextBoxText(VehicleHealthHud, _("vehicle_health")..math.floor(GetVehicleHealth(GetPlayerVehicle())))
-        SetTextBoxText(VehicleFuelHud, _("fuel")..GetVehiclePropertyValue(GetPlayerVehicle(), "fuel"))
+        local fuel = GetVehiclePropertyValue(GetPlayerVehicle(), "fuel")
+        if fuel ~= nil then SetTextBoxText(VehicleFuelHud, _("fuel")..fuel) end
     else
         SetTextBoxText(VehicleSpeedHud, "")
         SetTextBoxText(VehicleFuelHud, "")
