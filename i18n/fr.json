@@ -369,5 +369,20 @@
     "drugdealer_dealmsg": "Écoute mon gars, j'peux te donner",
     "drugdealer_for": "{1}$ pour {2} de {3}",
     "drugdealer_yousolddrugs": "Vous avez vendu pour {1}$ de drogue avec succès",
-    "inventory_notenoughspace": "Vous n'avez pas assez de place pour ça"
+    "inventory_notenoughspace": "Vous n'avez pas assez de place pour ça",
+    "police": "Police",
+    "cadet": "Cadet",
+    "officer": "Officer",
+    "sergent": "Sergent",
+    "lieutenant": "Lieutenant",
+    "captain": "Captain",
+    "medic": "Hôpital",
+    "mine": "Mine",
+    "fishing": "Pêche",
+    "phone": "Téléphone",
+    "transport": "Transport",
+    "banking": "Banque",
+    "employee": "Employé",
+    "manager": "Manageur",
+    "ceo": "Directeur"
 }
