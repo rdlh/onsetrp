@@ -34,7 +34,8 @@
         "onset-phone/server.lua",
         "transport/s_busstop.lua",
         "burdigalax/server/inventory.lua",
-        "vehicle_radio/server.lua"
+        "misc/redis.lua",
+        "misc/log.lua"
     ],
     "client_scripts": [
         "accounts/client.lua",
