@@ -8,7 +8,7 @@ function OnPackageStart()
             SavePlayerAccount(v)
 		end
 		print("All accounts have been saved !")
-    end, 30000)
+	end, 30000)
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
@@ -138,6 +138,8 @@ function OnAccountLoaded(player)
 		PlayerData[player].driver_license = math.tointeger(result['driver_license'])
 		PlayerData[player].gun_license = math.tointeger(result['gun_license'])
 		PlayerData[player].helicopter_license = math.tointeger(result['helicopter_license'])
+		PlayerData[player].company_id = math.tointeger(result['company_id'])
+		PlayerData[player].company_position_id = math.tointeger(result['company_position_id'])
 		PlayerData[player].inventory = json_decode(result['inventory'])
 		PlayerData[player].created = math.tointeger(result['created'])
 		PlayerData[player].position = json_decode(result['position'])
@@ -245,6 +247,8 @@ function CreatePlayerData(player)
 	PlayerData[player].bank_balance = 900
 	PlayerData[player].job_vehicle = nil
 	PlayerData[player].job = ""
+	PlayerData[player].company_id = nil
+	PlayerData[player].company_position_id = nil
 	PlayerData[player].onAction = false
 	PlayerData[player].isActioned = false
 	PlayerData[player].phone_contacts = {}
@@ -293,7 +297,7 @@ function SavePlayerAccount(player)
 	local x, y, z = GetPlayerLocation(player)
 	PlayerData[player].position = {x= x, y= y, z= z}
 
-	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, health_state = '?', death_pos = '?', armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?' WHERE id = ? LIMIT 1;",
+	local query = mariadb_prepare(sql, "UPDATE accounts SET admin = ?, bank_balance = ?, health = ?, health_state = '?', death_pos = '?', armor = ?, hunger = ?, thirst = ?, name = '?', clothing = '?', clothing_police = '?', inventory = '?', created = '?', position = '?', driver_license = ?, gun_license = ?, helicopter_license = ?, drug_knowledge = '?', company_id = ?, company_position_id = ? WHERE id = ? LIMIT 1;",
 		PlayerData[player].admin,
 		PlayerData[player].bank_balance,
 		100,
@@ -312,6 +316,8 @@ function SavePlayerAccount(player)
 		PlayerData[player].gun_license,
 		PlayerData[player].helicopter_license,
 		json_encode(PlayerData[player].drug_knowledge),
+		PlayerData[player].company_id,
+		PlayerData[player].company_position_id,
 		PlayerData[player].accountid
 	)
         

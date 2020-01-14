@@ -9,6 +9,7 @@ Company.all = function (callback)
 end
 
 Company.find = function (id, callback)
+  id = tonumber(id)
   if callback then
     callback(Company.findBy("id", id))
   else
@@ -58,8 +59,6 @@ function BuildCompany(company)
 		addMoney = AddCompanyMoney
 	}
 end
-
-function AddCompanyMoney(money)
 
 -- Callbacks
 

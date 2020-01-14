@@ -20,6 +20,7 @@ CompanyClass.new = function (id, name, money, positions)
   -- Functions
 
   self.addMoney = function (addedMoney)
+    print(1)
     return self.updateAttributes({ money = self.money + addedMoney })
   end
 
@@ -37,20 +38,22 @@ CompanyClass.new = function (id, name, money, positions)
     local shouldSave = false
     local newAttributes = { }
 
-    for _, attribute in pairs(attributes) do
-      for key, value in pairs(attribute) do
-        if self[key] ~= value then
-          shouldSave = true
-          table.insert(newAttributes, attribute)
-          self[key] = value
-        end
+    for key, value in pairs(attributes) do
+      if self[key] ~= value then
+        shouldSave = true
+        table.insert(newAttributes, key.." = "..value)
+        self[key] = value
       end
     end
 
-    local query = "UPDATE "..self._table_name.." SET "..table.concat(newAttributes, ", ").." WHERE id = "..self.id..";"
-
-    if CompaniesConfig.debug then
-      print("OnsetRP::Companies DEBUG → "..query)
+    if shouldSave then
+      local query = "UPDATE "..self._table_name.." SET "..table.concat(newAttributes, ", ").." WHERE id = "..self.id..";"
+  
+      if CompaniesConfig.debug then
+        print("OnsetRP::Companies DEBUG → "..query)
+      end
+  
+      mariadb_async_query(sql, query, function() end)
     end
   end
 
@@ -58,8 +61,3 @@ CompanyClass.new = function (id, name, money, positions)
 
   return self
 end
-
--- Creating an object
--- myshape = CompanyClass:new(nil,10)
-
--- myshape:printArea()

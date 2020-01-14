@@ -24,6 +24,6 @@ ALTER TABLE `accounts`
   ADD `company_id` VARCHAR(255) DEFAULT NULL;
 
 ALTER TABLE `accounts`
-  ADD `company_job` VARCHAR(255) DEFAULT NULL;
+  ADD `company_position_id` VARCHAR(255) DEFAULT NULL;
 
 COMMIT;

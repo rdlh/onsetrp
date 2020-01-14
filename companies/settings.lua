@@ -12,7 +12,15 @@ CompaniesConfig = {
 
 -- Default companies
 
-local defaultCompanies = {
+function GetDefaultRoles(startingId)
+  return {
+    { id = startingId, name = _("employee"), permissions = 1, salary = CompaniesConfig.employeeDefaultSalary },
+    { id = startingId + 1, name = _("manager"), permissions = 2, salary = CompaniesConfig.managerDefaultSalary },
+    { id = startingId + 2, name = _("ceo"), permissions = 3, salary = CompaniesConfig.ceoDefaultSalary }
+  }
+end
+
+DefaultCompanies = {
   {
     id = 1,
     name = _("police"),
@@ -28,41 +36,31 @@ local defaultCompanies = {
     id = 2,
     name = _("medic"),
     money = 20000,
-    positions = defaultRoles(6)
+    positions = GetDefaultRoles(6)
   }, {
     id = 3,
     name = _("mine"),
     money = CompaniesConfig.defaultCompaniesStartingMoney,
-    positions = defaultRoles(9)
+    positions = GetDefaultRoles(9)
   }, {
     id = 4,
     name = _("fishing"),
     money = CompaniesConfig.defaultCompaniesStartingMoney,
-    positions = defaultRoles(12)
+    positions = GetDefaultRoles(12)
   }, {
     id = 5,
     name = _("phone"),
     money = CompaniesConfig.defaultCompaniesStartingMoney,
-    positions = defaultRoles(15)
+    positions = GetDefaultRoles(15)
   }, {
     id = 6,
     name = _("transport"),
     money = CompaniesConfig.defaultCompaniesStartingMoney,
-    positions = defaultRoles(18)
+    positions = GetDefaultRoles(18)
   }, {
     id = 7,
     name = _("banking"),
     money = CompaniesConfig.defaultCompaniesStartingMoney,
-    positions = defaultRoles(21)
+    positions = GetDefaultRoles(21)
   }
 }
-
-function GetDefaultRoles(startingId)
-  { id = startingId, name = _("employee"), permissions = 1, salary = CompaniesConfig.employeeDefaultSalary },
-  { id = startingId + 1, name = _("manager"), permissions = 2, salary = CompaniesConfig.managerDefaultSalary },
-  { id = startingId + 2, name = _("ceo"), permissions = 3, salary = CompaniesConfig.ceoDefaultSalary }
-end
-
-function GetDefaultCompanies()
-  return defaultCompanies
-end
